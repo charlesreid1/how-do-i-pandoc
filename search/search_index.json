@@ -1,0 +1,74 @@
+{
+    "docs": [
+        {
+            "location": "/",
+            "text": "How Do I Pandoc?\n\u00b6\n\n\nA simple explanation of how to use pandoc, the C-3PO of documents.\n\n\nPandoc is a command line tool written in Haskell. It knows many different\ndialects of document, so it is capable of extracting the content of \ndocuments in one format and converting them into another format.\n\n\nSome examples: markdown, github-flavored markdown, reStructured text,\nHTML, docx, OpenOffice.Org document format, etc.\n\n\nIt is also possible to write filters for pandoc to process text\nin customized ways (e.g., extract all links in a document, or \ncreate a table of contents, or turn bold text into strikethrough\ntext).\n\n\nInstalling\n\u00b6\n\n\nAvailable through most package managers. See \ninstalling pandoc\n\npage in the pandoc documentation.\n\n\n$ brew install pandoc\n\n$ apt-get install pandoc\n\n\n\n\n\nQuickstart\n\u00b6\n\n\nThere is a nice \ngetting started guide\n \nin the pandoc documentation for those unfamiliar with command-line tools.\n\n\nThere is also a \nuser's guide\n that shows\nbasic usage of pandoc as a command line tool.\n\n\nCommon Operations\n\u00b6\n\n\nThere are a few common operations with pandoc:\n\n\n\n\nConverting text\n from one format to another (basic)\n\n\nFiltering text with pre-written filters\n (intermediate)\n\n\nFiltering text with custom filters\n (advanced)\n\n\nSome combination of above\n\n\n\n\nThere are two ways to use pandoc, covered in each section:\n\n\n\n\nPandoc command line tool - \npandoc\n command\n\n\nPypandoc API wrapper - \npypandoc\n library",
+            "title": "Index"
+        },
+        {
+            "location": "/#how-do-i-pandoc",
+            "text": "A simple explanation of how to use pandoc, the C-3PO of documents.  Pandoc is a command line tool written in Haskell. It knows many different\ndialects of document, so it is capable of extracting the content of \ndocuments in one format and converting them into another format.  Some examples: markdown, github-flavored markdown, reStructured text,\nHTML, docx, OpenOffice.Org document format, etc.  It is also possible to write filters for pandoc to process text\nin customized ways (e.g., extract all links in a document, or \ncreate a table of contents, or turn bold text into strikethrough\ntext).",
+            "title": "How Do I Pandoc?"
+        },
+        {
+            "location": "/#installing",
+            "text": "Available through most package managers. See  installing pandoc \npage in the pandoc documentation.  $ brew install pandoc\n\n$ apt-get install pandoc",
+            "title": "Installing"
+        },
+        {
+            "location": "/#quickstart",
+            "text": "There is a nice  getting started guide  \nin the pandoc documentation for those unfamiliar with command-line tools.  There is also a  user's guide  that shows\nbasic usage of pandoc as a command line tool.",
+            "title": "Quickstart"
+        },
+        {
+            "location": "/#common-operations",
+            "text": "There are a few common operations with pandoc:   Converting text  from one format to another (basic)  Filtering text with pre-written filters  (intermediate)  Filtering text with custom filters  (advanced)  Some combination of above   There are two ways to use pandoc, covered in each section:   Pandoc command line tool -  pandoc  command  Pypandoc API wrapper -  pypandoc  library",
+            "title": "Common Operations"
+        },
+        {
+            "location": "/converting/",
+            "text": "Converting Text\n\u00b6\n\n\nTo use pandoc to convert text, specify an output file, then feed it input files.\nYou can also specify input and output formats, and use some basic pandoc flags \nto control how the process goes.\n\n\nTo specify an output file, use the \n-o\n or \n--output\n flag.\n\n\nAll other file names passed on the command line are interpreted as input files.\n\n\nFor example, to convert text to HTML, we can either convert the text \ninto a fragment of HTML, or into a full, standalone document using the \n-s\n\nor \n--standalone\n flag:\n\n\n$ pandoc -o output.html input.txt       # generate a fragment of html\n$ pandoc -s -o output.html input.txt    # generate a standalone html document\n\n\n\n\n\nTo specify formats, use the \n-t\n or \n--to\n flag, and the \n-f\n or \n--from\n flag.\nFor example, converting from Github-flavored Markdown (gfm) to HTML looks like:\n\n\n$ pandoc -f gfm -t html -o my_cool_html_file.html my_cool_markdown_file.md\n\n\n\n\n\nSee \nlist of formats\n.\n\n\nIf no output file is specified, output will go to stdout. \nThis enables pandoc to be chained together with other tools\ninto pipelines.\n\n\nIn that spirit, input to pandoc can also come from stdin.\nTo make pandoc a component of a data pipeline, simply feed\ninput from stdin and pipe output from stdout:\n\n\n$ cat my_cool_markdown_file.md | pandoc -f gfm -t html | ...\n\n\n\n\n\nWe can also generate and convert documents on the fly from the command line:\n\n\n$ echo \"# Hello World\n\n[this is the earth](https://earth.com)\" | pandoc -f gfm -t html\n<h1 id=\"hello-world\">Hello World</h1>\n<p><a href=\"https://earth.com\">this is the earth</a></p>",
+            "title": "Converting Text"
+        },
+        {
+            "location": "/converting/#converting-text",
+            "text": "To use pandoc to convert text, specify an output file, then feed it input files.\nYou can also specify input and output formats, and use some basic pandoc flags \nto control how the process goes.  To specify an output file, use the  -o  or  --output  flag.  All other file names passed on the command line are interpreted as input files.  For example, to convert text to HTML, we can either convert the text \ninto a fragment of HTML, or into a full, standalone document using the  -s \nor  --standalone  flag:  $ pandoc -o output.html input.txt       # generate a fragment of html\n$ pandoc -s -o output.html input.txt    # generate a standalone html document  To specify formats, use the  -t  or  --to  flag, and the  -f  or  --from  flag.\nFor example, converting from Github-flavored Markdown (gfm) to HTML looks like:  $ pandoc -f gfm -t html -o my_cool_html_file.html my_cool_markdown_file.md  See  list of formats .  If no output file is specified, output will go to stdout. \nThis enables pandoc to be chained together with other tools\ninto pipelines.  In that spirit, input to pandoc can also come from stdin.\nTo make pandoc a component of a data pipeline, simply feed\ninput from stdin and pipe output from stdout:  $ cat my_cool_markdown_file.md | pandoc -f gfm -t html | ...  We can also generate and convert documents on the fly from the command line:  $ echo \"# Hello World\n\n[this is the earth](https://earth.com)\" | pandoc -f gfm -t html\n<h1 id=\"hello-world\">Hello World</h1>\n<p><a href=\"https://earth.com\">this is the earth</a></p>",
+            "title": "Converting Text"
+        },
+        {
+            "location": "/filtering_pre/",
+            "text": "Filtering Text with Pre-Written Filters\n\u00b6\n\n\nPandoc has multiple command line options that \napply some useful pre-written filters.\n\n\nFor a list, just run \npandoc --help\n.\n\n\nHere we cover the most useful filters, and how to use them.\n\n\nExtracting Media\n\u00b6\n\n\nA useful filter is the extract media filter.\nThis filter is applied by adding a command line\nflag to the pandoc call:\n\n\n$ pandoc --extract-media=doc1_media doc1.docx\n\n\n\n\n\nThis creates a folder next to \ndoc1.docx\n \nwith the following structure:\n\n\n$ ls -R\ndoc1.docx\ndoc1_media\n\n./doc1_media:\nmedia\n\n./doc1_media/media:\nembedded_image.png",
+            "title": "Filtering with Pre-Written Filters"
+        },
+        {
+            "location": "/filtering_pre/#filtering-text-with-pre-written-filters",
+            "text": "Pandoc has multiple command line options that \napply some useful pre-written filters.  For a list, just run  pandoc --help .  Here we cover the most useful filters, and how to use them.",
+            "title": "Filtering Text with Pre-Written Filters"
+        },
+        {
+            "location": "/filtering_pre/#extracting-media",
+            "text": "A useful filter is the extract media filter.\nThis filter is applied by adding a command line\nflag to the pandoc call:  $ pandoc --extract-media=doc1_media doc1.docx  This creates a folder next to  doc1.docx  \nwith the following structure:  $ ls -R\ndoc1.docx\ndoc1_media\n\n./doc1_media:\nmedia\n\n./doc1_media/media:\nembedded_image.png",
+            "title": "Extracting Media"
+        },
+        {
+            "location": "/filtering_custom/",
+            "text": "Filtering Text with Custom Filters\n\u00b6\n\n\nThis guide will skip most of the details of \nwriting custom filters, since it would rapidly\nexpand the scope of this tutorial.\n\n\nHowever, we include a few notes about how custom\nfilters work and how to apply them.\n\n\nHow Custom Filters Work\n\u00b6\n\n\npandoc converts every document, regardless of structure,\ninto a universal JSON document structure. This is what \nenables it to convert among formats, and it is also where\nany document filters are applied.\n\n\nTo illustrate: imagine we have some abstract custom filter\ncalled \nfoobar\n that will make all bold text underlined \n(for example), and we are applying it when converting\nfrom Markdown to HTML.\n\n\nThe process to apply this filter is as follows:\n\n\nInput fmt --(pandoc)--> JSON --(filter)--> JSON --(pandoc)--> Output fmt \n\n\n\n\n\nIn practice, we can create this pipeline on the \ncommand line, or from Python.\n\n\nAlso note, it is important for us to use pandoc with the \n-s\n\n(standalone document) flag.\n\n\nCommand Line\n\u00b6\n\n\nFollowing the example above, let us apply a filter \nwhile converting \nindex.md\n from github flavored markdown\nto HTML.\n\n\nStart with the initial step, which is markdown to JSON\n(include the \n-s\n flag):\n\n\n$ cat index.md | pandoc -s -f gfm -t json\n\n\n\n\n\nNow this JSON is passed through a filter,\nwhich also returns JSON (more details below).\nUsing the abstract \nfoobar\n filter,\n\n\n$ cat index.md | pandoc -s -f gfm -t json | foobar \n\n\n\n\n\nThis can now be passed to pandoc again, and converted\nto a different format:\n\n\n$ cat index.md | pandoc -s -f gfm -t json | foobar | pandoc -s -f json -t html -o index.html",
+            "title": "Filtering with Custom Filters"
+        },
+        {
+            "location": "/filtering_custom/#filtering-text-with-custom-filters",
+            "text": "This guide will skip most of the details of \nwriting custom filters, since it would rapidly\nexpand the scope of this tutorial.  However, we include a few notes about how custom\nfilters work and how to apply them.",
+            "title": "Filtering Text with Custom Filters"
+        },
+        {
+            "location": "/filtering_custom/#how-custom-filters-work",
+            "text": "pandoc converts every document, regardless of structure,\ninto a universal JSON document structure. This is what \nenables it to convert among formats, and it is also where\nany document filters are applied.  To illustrate: imagine we have some abstract custom filter\ncalled  foobar  that will make all bold text underlined \n(for example), and we are applying it when converting\nfrom Markdown to HTML.  The process to apply this filter is as follows:  Input fmt --(pandoc)--> JSON --(filter)--> JSON --(pandoc)--> Output fmt   In practice, we can create this pipeline on the \ncommand line, or from Python.  Also note, it is important for us to use pandoc with the  -s \n(standalone document) flag.",
+            "title": "How Custom Filters Work"
+        },
+        {
+            "location": "/filtering_custom/#command-line",
+            "text": "Following the example above, let us apply a filter \nwhile converting  index.md  from github flavored markdown\nto HTML.  Start with the initial step, which is markdown to JSON\n(include the  -s  flag):  $ cat index.md | pandoc -s -f gfm -t json  Now this JSON is passed through a filter,\nwhich also returns JSON (more details below).\nUsing the abstract  foobar  filter,  $ cat index.md | pandoc -s -f gfm -t json | foobar   This can now be passed to pandoc again, and converted\nto a different format:  $ cat index.md | pandoc -s -f gfm -t json | foobar | pandoc -s -f json -t html -o index.html",
+            "title": "Command Line"
+        }
+    ]
+}
