@@ -48,11 +48,3 @@ There are two ways to use pandoc, covered in each section:
 * Pandoc command line tool - `pandoc` command
 * Pypandoc API wrapper - [`pypandoc`](https://github.com/bebraw/pypandoc) library
 
-
-
-
-
-
-
-
-
