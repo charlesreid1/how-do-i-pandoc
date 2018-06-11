@@ -6,6 +6,28 @@ apply some useful pre-written filters.
 For a list, just run `pandoc --help`.
 
 Here we cover the most useful filters, and how to use them.
+Here are a few example filters:
+
+```
+$ pandoc --help
+pandoc [OPTIONS] [FILES]
+                        --strip-empty-paragraphs
+                        --extract-media=PATH
+                        --eol=crlf|lf|native
+                        --wrap=auto|none|preserve
+                        --columns=NUMBER
+                        --strip-comments
+                        --toc, --table-of-contents
+                        --toc-depth=NUMBER
+                        --no-highlight
+                        --highlight-style=STYLE|FILE
+                        --syntax-definition=FILE
+                        --reference-links
+                        --reference-location=block|section|document
+                        --default-image-extension=extension
+                        --email-obfuscation=none|javascript|references
+```
+
 
 ### Extracting Media
 
