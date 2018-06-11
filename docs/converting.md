@@ -44,6 +44,7 @@ We can also generate and convert documents on the fly from the command line:
 $ echo "# Hello World
 
 [this is the earth](https://earth.com)" | pandoc -f gfm -t html
+
 <h1 id="hello-world">Hello World</h1>
 <p><a href="https://earth.com">this is the earth</a></p>
 ```
