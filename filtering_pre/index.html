@@ -389,7 +389,28 @@
 <p>Pandoc has multiple command line options that 
 apply some useful pre-written filters.</p>
 <p>For a list, just run <code>pandoc --help</code>.</p>
-<p>Here we cover the most useful filters, and how to use them.</p>
+<p>Here we cover the most useful filters, and how to use them.
+Here are a few example filters:</p>
+<div class="codehilite"><pre><span></span>$ pandoc --help
+pandoc [OPTIONS] [FILES]
+                        --strip-empty-paragraphs
+                        --extract-media=PATH
+                        --eol=crlf|lf|native
+                        --wrap=auto|none|preserve
+                        --columns=NUMBER
+                        --strip-comments
+                        --toc, --table-of-contents
+                        --toc-depth=NUMBER
+                        --no-highlight
+                        --highlight-style=STYLE|FILE
+                        --syntax-definition=FILE
+                        --reference-links
+                        --reference-location=block|section|document
+                        --default-image-extension=extension
+                        --email-obfuscation=none|javascript|references
+</pre></div>
+
+
 <h3 id="extracting-media">Extracting Media<a class="headerlink" href="#extracting-media" title="Permanent link">&para;</a></h3>
 <p>A useful filter is the extract media filter.
 This filter is applied by adding a command line

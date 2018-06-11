@@ -302,19 +302,40 @@
     Filtering Text with Custom Filters
   </a>
   
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
+</li>
+      
+        <li class="md-nav__item">
   <a href="#how-custom-filters-work" title="How Custom Filters Work" class="md-nav__link">
     How Custom Filters Work
   </a>
   
 </li>
+      
+        <li class="md-nav__item">
+  <a href="#writing-custom-filters" title="Writing Custom Filters" class="md-nav__link">
+    Writing Custom Filters
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-custom-filters" title="Using Custom Filters" class="md-nav__link">
+    Using Custom Filters
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#command-line" title="Command Line" class="md-nav__link">
     Command Line
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pypandoc" title="Pypandoc" class="md-nav__link">
+    Pypandoc
   </a>
   
 </li>
@@ -358,19 +379,40 @@
     Filtering Text with Custom Filters
   </a>
   
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
+</li>
+      
+        <li class="md-nav__item">
   <a href="#how-custom-filters-work" title="How Custom Filters Work" class="md-nav__link">
     How Custom Filters Work
   </a>
   
 </li>
+      
+        <li class="md-nav__item">
+  <a href="#writing-custom-filters" title="Writing Custom Filters" class="md-nav__link">
+    Writing Custom Filters
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-custom-filters" title="Using Custom Filters" class="md-nav__link">
+    Using Custom Filters
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#command-line" title="Command Line" class="md-nav__link">
     Command Line
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pypandoc" title="Pypandoc" class="md-nav__link">
+    Pypandoc
   </a>
   
 </li>
@@ -405,8 +447,8 @@ writing custom filters, since it would rapidly
 expand the scope of this tutorial.</p>
 <p>However, we include a few notes about how custom
 filters work and how to apply them.</p>
-<h3 id="how-custom-filters-work">How Custom Filters Work<a class="headerlink" href="#how-custom-filters-work" title="Permanent link">&para;</a></h3>
-<p>pandoc converts every document, regardless of structure,
+<h2 id="how-custom-filters-work">How Custom Filters Work<a class="headerlink" href="#how-custom-filters-work" title="Permanent link">&para;</a></h2>
+<p><code>pandoc</code> converts every document, regardless of structure,
 into a universal JSON document structure. This is what 
 enables it to convert among formats, and it is also where
 any document filters are applied.</p>
@@ -415,14 +457,61 @@ called <code>foobar</code> that will make all bold text underlined
 (for example), and we are applying it when converting
 from Markdown to HTML.</p>
 <p>The process to apply this filter is as follows:</p>
-<div class="codehilite"><pre><span></span>Input fmt --(pandoc)--&gt; JSON --(filter)--&gt; JSON --(pandoc)--&gt; Output fmt 
+<div class="codehilite"><pre><span></span>Input fmt --(pandoc)--&gt; JSON -- Filter --&gt; JSON --(pandoc)--&gt; Output fmt 
 </pre></div>
 
 
 <p>In practice, we can create this pipeline on the 
 command line, or from Python.</p>
-<p>Also note, it is important for us to use pandoc with the <code>-s</code>
+<p>Also note, it is important to use pandoc with the <code>-s</code>
 (standalone document) flag.</p>
+<h2 id="writing-custom-filters">Writing Custom Filters<a class="headerlink" href="#writing-custom-filters" title="Permanent link">&para;</a></h2>
+<p>See <a href="https://github.com/sergiocorreia/panflute/blob/master/docs/source/_static/fenced-template.py">this example</a>
+for a Panflute filter template.</p>
+<p>The important parts of a pandoc filter are:</p>
+<ul>
+<li>
+<p><strong>Prepare function</strong> - run once, before the document is filtered. This is
+    useful for initializing lists, dictionaries, or files.</p>
+</li>
+<li>
+<p><strong>Finalize function</strong> - run once, after the document has been filtered.
+    This is useful for doing something with information extracted from
+    the document.</p>
+</li>
+<li>
+<p><strong>Filter actions</strong> - these functions are run once for each chunk of text.
+    Each filter action is passed a chunk of text in.
+    If a filter action returns nothing, the section of text is left unmodified. 
+    Otherwise, the (filtered) text returned by the function is used in its place.
+    There can be multiple filter actions per document. </p>
+</li>
+<li>
+<p><strong>Main function</strong> - this is where the filter is actually applied.</p>
+</li>
+</ul>
+<p>Here is a barebones filter:</p>
+<div class="codehilite"><pre><span></span>def main(doc=None):
+    return pf.run_filter(action,
+                         prepare=prepare, 
+                         finalize=finalize,
+                         doc=doc)
+
+def prepare(doc):
+    pass
+
+def action(elem, doc):
+    pass
+
+def finalize(doc):
+    pass
+
+if __name__==&quot;__main__&quot;:
+    main()
+</pre></div>
+
+
+<h2 id="using-custom-filters">Using Custom Filters<a class="headerlink" href="#using-custom-filters" title="Permanent link">&para;</a></h2>
 <h3 id="command-line">Command Line<a class="headerlink" href="#command-line" title="Permanent link">&para;</a></h3>
 <p>Following the example above, let us apply a filter 
 while converting <code>index.md</code> from github flavored markdown
@@ -435,15 +524,32 @@ to HTML.</p>
 
 <p>Now this JSON is passed through a filter,
 which also returns JSON (more details below).
-Using the abstract <code>foobar</code> filter,</p>
-<div class="codehilite"><pre><span></span>$ cat index.md | pandoc -s -f gfm -t json | foobar 
+If we have a <code>panflute</code> filter that is in the
+file <code>foobar.py</code>, it will take JSON input
+and return JSON output. We use it like this:</p>
+<div class="codehilite"><pre><span></span>$ cat index.md | pandoc -s -f gfm -t json | python foobar.py
 </pre></div>
 
 
-<p>This can now be passed to pandoc again, and converted
-to a different format:</p>
+<p>This will output filtered JSON text. (More on the
+filter itself in a moment.)</p>
+<p>The output from the filter <code>foobar.py</code> can now be passed to
+another Pandoc process and converted to a document in the same
+or a different format:</p>
+<div class="codehilite"><pre><span></span>$ cat index.md | pandoc -s -f gfm -t json | python foobar.py | pandoc -s -f json -t html -o index.html
+</pre></div>
+
+
+<p>Lastly, if we make <code>foobar.py</code> into an executable file called <code>foobar</code>
+by adding the header <code>#!/usr/bin/env python</code> and <code>chmod +x foobar</code>,
+we can use it as follows:</p>
 <div class="codehilite"><pre><span></span>$ cat index.md | pandoc -s -f gfm -t json | foobar | pandoc -s -f json -t html -o index.html
 </pre></div>
+
+
+<h3 id="pypandoc">Pypandoc<a class="headerlink" href="#pypandoc" title="Permanent link">&para;</a></h3>
+<p>Custom filters can also be applied using <a href="https://github.com/bebraw/pypandoc">pypandoc</a>, 
+a thin Python wrapper for the Pandoc command line client.</p>
                 
                   
                 
