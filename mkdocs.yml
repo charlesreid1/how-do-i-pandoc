@@ -21,7 +21,7 @@ theme:
   font:
     text: 'Bitter'
     code: 'PT Mono'
-pages:
+nav:
   - "Index" : "index.md"
   - "Converting Text" : "converting.md"
   - "Filtering with Pre-Written Filters" : "filtering_pre.md"
@@ -34,3 +34,6 @@ markdown_extensions:
       guess_lang: false
   - toc:
       permalink: true
+
+
+strict: true
